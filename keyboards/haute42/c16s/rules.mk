@@ -1,0 +1,3 @@
+BOARD = GENERIC_RP_RP2040
+
+DEBOUNCE_TYPE = asym_eager_defer_pk
