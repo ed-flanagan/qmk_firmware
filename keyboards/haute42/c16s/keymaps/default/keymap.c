@@ -18,19 +18,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *         └───┤ W │    │ M1 ├───┘
      *             └───┘    └────┘
      */
+
+    /*
+     *                            0 1 2 3 4
+     *
+     *     ┌───┬───┬───┐    ┌───┬───┬───┐
+     * ┌───┤ 5 │ 6 │ 7 ├────┤ 9 │ 10│ 11├───┐
+     * │ 18├───┴───┴───┤ 20 ├───┼───┼───┤ 19│
+     * └───┘           └────┤ 13│ 14│ 15├───┘
+     *                      └───┴───┴───┘
+     *         ┌───┐             ┌───┐
+     *         │ 12├───┐    ┌────┤ 16│
+     *         └───┤ 8 │    │ 17 ├───┘
+     *             └───┘    └────┘
+     */
     [0] = LAYOUT(
-                                  KC_NO,   LT(1, KC_NO), KC_NO,   KC_NO,  KC_NO,
-              KC_A, KC_S,   KC_D,          KC_J,         KC_K,    KC_L,
-        KC_E,                     MS_BTN2,                                KC_R,
-                                           KC_M,         KC_COMM, KC_DOT,
-                    KC_SPC, KC_W,          MS_BTN1,      KC_U
+        KC_NO,   LT(1, KC_NO),    KC_NO, KC_NO,  KC_NO,
+
+        KC_A,    KC_S,    KC_D,   KC_W,
+        KC_J,    KC_K,    KC_L,   KC_SPC,
+        KC_M,    KC_COMM, KC_DOT, KC_U,
+        MS_BTN1, KC_E,    KC_R,   MS_BTN2
     ),
     [1] = LAYOUT(
-                                            QK_BOOT, _______, _______, _______, _______,
-                 _______, _______, _______,          RM_PREV, RM_NEXT, RM_TOGG,
-        _______,                            _______,                            _______,
-                                                     RM_HUED, RM_HUEU, RM_FLGN,
-                         _______, _______,           _______, _______
+        QK_BOOT, _______, _______, _______, _______,
+
+        _______, _______, _______, _______,
+        RM_NEXT, RM_SPDU, RM_HUEU, _______,
+        RM_PREV, RM_SPDD, RM_HUED, _______,
+        _______, _______, RM_TOGG, EE_CLR
     ),
 };
 
@@ -108,6 +124,7 @@ static void render_logo(void) {
     oled_write_P(haute42_logo, false);
 }
 
+// https://docs.qmk.fm/features/oled_driver#logo-example
 bool oled_task_user(void) {
     render_logo();
     return false;
