@@ -159,6 +159,9 @@ enum RGBLIGHT_EFFECT_MODE {
 #ifndef RGBLIGHT_SAT_STEP
 #    define RGBLIGHT_SAT_STEP 17
 #endif
+#ifndef RGBLIGHT_SPD_MAX
+#   define RGBLIGHT_SPD_MAX 2
+#endif
 #ifndef RGBLIGHT_VAL_STEP
 #    define RGBLIGHT_VAL_STEP 17
 #endif
@@ -350,6 +353,7 @@ void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 uint8_t rgblight_get_speed(void);
 void    rgblight_set_speed(uint8_t speed);
 void    rgblight_set_speed_noeeprom(uint8_t speed);
+void    rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom);
 
 /*   reset */
 void rgblight_reload_from_eeprom(void);
