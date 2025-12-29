@@ -653,11 +653,17 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
 #if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT) || defined(RGBLIGHT_EFFECT_TWINKLE)
 
 static uint8_t get_interval_time(const uint8_t *default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
-    return
 #    ifdef VELOCIKEY_ENABLE
-        rgblight_velocikey_enabled() ? rgblight_velocikey_match_speed(velocikey_min, velocikey_max) :
+    return rgblight_velocikey_enabled() ? rgblight_velocikey_match_speed(velocikey_min, velocikey_max)
+                                        : pgm_read_byte(default_interval_address);
+#    elif defined(RGBLIGHT_DISABLE_DYNAMIC_STEPS)
+    uint8_t spd = pgm_read_byte(default_interval_address) - rgblight_get_speed();
+    return spd < velocikey_min ? velocikey_min
+                               : spd > velocikey_max ? velocikey_max
+                                                     : spd;
+#    else
+    return pgm_read_byte(default_interval_address);
 #    endif
-                                     pgm_read_byte(default_interval_address);
 }
 
 #endif
