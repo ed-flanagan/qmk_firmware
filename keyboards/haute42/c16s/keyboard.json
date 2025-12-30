@@ -2,18 +2,22 @@
     "keyboard_name": "HautePad C16-S",
     "manufacturer": "Haute42/Cosmox",
     "url": "https://cosmoxgaming.com/c16/",
-    "tags": ["leverless", "split", "fightpad", "rgb"],
+    "tags": ["leverless", "split", "fightpad", "rgb", "RP2040"],
 
     "maintainer": "ed-flanagan",
 
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
     "processor": "RP2040",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x6767",
+        "vid": "0xFEED"
+    },
     "ws2812": {
         "pin": "GP28",
         "driver": "vendor"
     },
-
     "build": {
         "debounce_type": "asym_eager_defer_pk",
         "firmware_format": "uf2"
