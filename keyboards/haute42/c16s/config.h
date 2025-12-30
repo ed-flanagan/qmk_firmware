@@ -16,23 +16,43 @@
 
 #pragma once
 
+// Bootloader
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
 
+// OLED
+#define OLED_DISPLAY_128X64
+// #define OLED_BRIGHTNESS 128
+// #define OLED_IC OLED_IC_SSD1306 // Default
+
+// Pico configs
+//
+// I2C
 #define I2C_DRIVER I2CD0
 #define I2C1_SDA_PIN GP0
 #define I2C1_SCL_PIN GP1
 
-#define OLED_DISPLAY_128X64
+// SPI
+// https://github.com/raspberrypi/pico-sdk/blob/2.2.0/src/boards/include/boards/pico.h#L52
+#define SPI_MISO_PIN GP16 // i.e., RX
+#define SPI_CSN_PIN  GP17 // NOTE: unused
+#define SPI_SCK_PIN  GP18 // pico-sdk default
+#define SPI_MOSI_PIN GP19 // i.e., TX
 
+// #define UART_DRIVER SIOD0
+#define UART_TX_PIN GP23
+#define UART_RX_PIN GP24
+
+// Debounce
 // #define DEBOUNCE 5
 
+// WS2812
 // #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
 #define WS2812_PIO_USE_PIO1
 // #define WS2812_RGBW
 #define WS2812_SPI_USE_CIRCULAR_BUFFER
 
+// RGB
 #define RGB_MATRIX_DISABLE_SHARED_KEYCODES
-
 #define RGBLIGHT_DISABLE_DYNAMIC_STEPS
 #define RGBLIGHT_SPD_MAX 100
