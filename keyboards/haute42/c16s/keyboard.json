@@ -26,6 +26,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
+        "joystick": true,
         "mousekey": true,
         "nkro": true,
         "oled": true,
