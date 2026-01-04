@@ -151,8 +151,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RM_PREV, XXXXXXX, RM_NEXT, XXXXXXX,
         RM_HUEU, RM_SATU, RM_VALU, PDF(_PAD),
         RM_HUED, RM_SATD, RM_VALD, PDF(_KEY),
-        XXXXXXX, XXXXXXX, RM_TOGG, EE_CLR
+        XXXXXXX, XXXXXXX, RM_FLGN, EE_CLR
     ),
 };
 
 // TODO: SOCD
+
+void keyboard_post_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_mode(RGB_MATRIX_CUSTOM_TXKO_SOLID);
+#endif
+}
+
+/*
+ * Essentially emulates RM_FLGN -- so no real need, but kind of want this for
+ * reference
+
+#define LED_GROUP_0 (LED_FLAG_INDICATOR | LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER)
+#define LED_GROUP_1 LED_FLAG_UNDERGLOW
+
+// Cycle through LED "groups" instead of simply turning on/off
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+    if (keycode == QK_RGB_MATRIX_TOGGLE && !record->event.pressed) {
+        switch (rgb_matrix_get_flags()) {
+            case LED_FLAG_ALL:
+                rgb_matrix_set_flags(LED_GROUP_0);
+                break;
+            case LED_GROUP_0:
+                rgb_matrix_set_flags(LED_GROUP_1);
+                break;
+            case LED_GROUP_1:
+                rgb_matrix_set_flags(LED_FLAG_NONE);
+                break;
+            default:
+                rgb_matrix_set_flags(LED_FLAG_ALL);
+                break;
+        }
+
+        return false;
+    }
+
+    return true;
+}
+*/
