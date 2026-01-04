@@ -98,7 +98,7 @@
             "starlight_smooth": false
         },
         "default": {
-            "animation": "cycle_left_right",
+            "animation": "cycle_out_in",
             "speed": 32
         },
         "layout": [
