@@ -1,3 +1,5 @@
 JOYSTICK_DRIVER = digital
 
 MOUSE_SHARED_EP = no
+
+CONSOLE_ENABLE = yes
