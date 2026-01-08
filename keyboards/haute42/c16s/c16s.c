@@ -61,7 +61,7 @@ bool oled_task_user(void) {
 */
 
 bool oled_task_user(void) {
-    oled_write_P(PSTR("Hello, World!"), false);
+    oled_write_P(PSTR("Hello, World! ////"), false);
     oled_scroll_left();
     return false;
 }
