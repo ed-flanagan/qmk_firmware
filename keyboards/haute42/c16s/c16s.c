@@ -64,7 +64,6 @@ static void render_tuco_logo(void) {
         // clang-format on
     };
 
-
     static const char PROGMEM tuco_logo_raw[] = {
         // clang-format off
 

@@ -35,8 +35,8 @@
 // SPI
 // https://github.com/raspberrypi/pico-sdk/blob/2.2.0/src/boards/include/boards/pico.h#L52
 #define SPI_MISO_PIN GP16 // i.e., RX
-#define SPI_CSN_PIN  GP17 // NOTE: unused
-#define SPI_SCK_PIN  GP18 // pico-sdk default
+#define SPI_CSN_PIN GP17  // NOTE: unused
+#define SPI_SCK_PIN GP18  // pico-sdk default
 #define SPI_MOSI_PIN GP19 // i.e., TX
 
 // #define UART_DRIVER SIOD0
