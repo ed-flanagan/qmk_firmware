@@ -24,9 +24,9 @@
 #define OLED_DISPLAY_128X64
 // #define OLED_BRIGHTNESS 128
 // #define OLED_IC OLED_IC_SSD1306 // Default
+#define OLED_SCROLL_TIMEOUT 60000
+#define OLED_TIMEOUT 0
 
-// Pico configs
-//
 // I2C
 #define I2C_DRIVER I2CD0
 #define I2C1_SDA_PIN GP0
@@ -42,9 +42,6 @@
 // #define UART_DRIVER SIOD0
 #define UART_TX_PIN GP23
 #define UART_RX_PIN GP24
-
-// Debounce
-// #define DEBOUNCE 5
 
 // WS2812
 // #define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
