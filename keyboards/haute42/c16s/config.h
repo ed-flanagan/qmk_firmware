@@ -26,6 +26,8 @@
 // #define OLED_IC OLED_IC_SSD1306 // Default
 #define OLED_SCROLL_TIMEOUT 60000
 #define OLED_TIMEOUT 0
+#define OLED_FADE_OUT
+#define OLED_FADE_OUT_INTERVAL 5
 
 // I2C
 #define I2C_DRIVER I2CD0
