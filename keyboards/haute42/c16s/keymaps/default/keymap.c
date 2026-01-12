@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-
 /*
  * Convenience game pad labels
  */
@@ -31,6 +30,7 @@
 // TODO: implement Turbo
 #define TURBO KC_NO
 
+// clang-format off
 enum layer_names {
     _PAD,
     _KEY,
@@ -67,11 +67,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+// clang-format on
+
 // TODO: SOCD
 
 void keyboard_post_init_user(void) {
-    debug_enable=true;
-    debug_matrix=true;
+    debug_enable = true;
+    debug_matrix = true;
 #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_mode(RGB_MATRIX_CUSTOM_TXKO_SOLID);
 #endif
