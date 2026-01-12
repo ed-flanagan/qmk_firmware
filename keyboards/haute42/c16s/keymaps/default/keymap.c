@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         GP_DL, GP_DD, GP_DR, GP_DU,
         GP_B3, GP_B4, GP_R1, GP_L1,
         GP_B1, GP_B2, GP_R2, GP_L2,
-        KC_DU, GP_L3, GP_R3, KC_NO
+        GP_DU, GP_L3, GP_R3, KC_NO
     ),
 
     [_KEY] = LAYOUT(
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_A,   KC_S,     KC_D,    KC_W,
         KC_J,   KC_K,     KC_L,    KC_U,
         KC_M,   KC_COMM,  KC_DOT,  KC_U,
-        KC_SPC, KC_Q,     KC_E,    KC_U,
+        KC_SPC, KC_Q,     KC_E,    KC_U
     ),
 
     [_FN] = LAYOUT(

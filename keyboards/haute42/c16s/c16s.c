@@ -49,6 +49,8 @@ static void render_tuco_logo(void) {
      * └───────────────────────┴─────┴─────────────────────┘
      */
 
+    /*
+     * TODO: use for boot image
     static const char PROGMEM haute42_logo_raw[] = {
         // clang-format off
 
@@ -63,6 +65,7 @@ static void render_tuco_logo(void) {
 
         // clang-format on
     };
+*/
 
     static const char PROGMEM tuco_logo_raw[] = {
         // clang-format off
