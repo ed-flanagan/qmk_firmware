@@ -18,39 +18,37 @@
 
 #ifdef OLED_ENABLE
 
-static void render_tuco_logo(void) {
-    /*
-     * 1024 bytes, 8x8 font, 128 characters, 128x64 image, 16 columns, 8 rows
-     *
-     * The oled screen is represented by 8x8 "bit blocks". Each byte represents
-     * 8 "column" bits within a given block. I.e. the 128x64 display is
-     * 8 rows with 16 columns. Each block contains 8 bytes (64 bits).
-     *
-     * The raw format is (singular) array of bytes. A given byte in the list
-     * is positional to it's respective location in the actual display.
-     * It simply iterates each "bit block" across each column, "wrapping" at
-     * the end of each row, i.e. `i % 128` is it's column and `i // 8` is row
-     *
-     * <row.col.vert>
-     * ┌───────────────────────┬─────┬─────────────────────┐
-     * │ 0.0.0 0.1.0 ... 0.7.0 │ ... │ 0.119.0 ... 0.127.0 │
-     * │   .         .         │     │         .           │
-     * │   .          .        │     │          .          │
-     * │   .           .       │     │           .         │
-     * │ 0.0.7       ... 0.7.7 │     │ 0.119.7 ... 0.127.7 │
-     * ├───────────────────────┼─────┼─────────────────────┤
-     * │ ...                   │ ... │ ...                 │
-     * ├───────────────────────┼─────┼─────────────────────┤
-     * │ 7.0.0 7.1.0 ... 7.7.0 │ ... │ 7.119.0 ... 7.127.0 │
-     * │   .         .         │     │         .           │
-     * │   .          .        │     │          .          │
-     * │   .           .       │     │           .         │
-     * │ 7.0.7       ... 7.7.7 │     │ 7.119.7 ... 7.127.7 │
-     * └───────────────────────┴─────┴─────────────────────┘
-     */
+/*
+ * 1024 bytes, 8x8 font, 128 characters, 128x64 image, 16 columns, 8 rows
+ *
+ * The oled screen is represented by 8x8 "bit blocks". Each byte represents
+ * 8 "column" bits within a given block. I.e. the 128x64 display is
+ * 8 rows with 16 columns. Each block contains 8 bytes (64 bits).
+ *
+ * The raw format is (singular) array of bytes. A given byte in the list
+ * is positional to it's respective location in the actual display.
+ * It simply iterates each "bit block" across each column, "wrapping" at
+ * the end of each row, i.e. `i % 128` is it's column and `i // 8` is row
+ *
+ * <row.col.vert>
+ * ┌───────────────────────┬─────┬─────────────────────┐
+ * │ 0.0.0 0.1.0 ... 0.7.0 │ ... │ 0.119.0 ... 0.127.0 │
+ * │   .         .         │     │         .           │
+ * │   .          .        │     │          .          │
+ * │   .           .       │     │           .         │
+ * │ 0.0.7       ... 0.7.7 │     │ 0.119.7 ... 0.127.7 │
+ * ├───────────────────────┼─────┼─────────────────────┤
+ * │ ...                   │ ... │ ...                 │
+ * ├───────────────────────┼─────┼─────────────────────┤
+ * │ 7.0.0 7.1.0 ... 7.7.0 │ ... │ 7.119.0 ... 7.127.0 │
+ * │   .         .         │     │         .           │
+ * │   .          .        │     │          .          │
+ * │   .           .       │     │           .         │
+ * │ 7.0.7       ... 7.7.7 │     │ 7.119.7 ... 7.127.7 │
+ * └───────────────────────┴─────┴─────────────────────┘
+ */
 
-    /*
-     * TODO: use for boot image
+static void render_haute42_logo(void) {
     static const char PROGMEM haute42_logo_raw[] = {
         // clang-format off
 
@@ -65,8 +63,11 @@ static void render_tuco_logo(void) {
 
         // clang-format on
     };
-*/
 
+    oled_write_raw_P(haute42_logo_raw, sizeof(haute42_logo_raw));
+}
+
+static void render_tuco_logo(void) {
     static const char PROGMEM tuco_logo_raw[] = {
         // clang-format off
 
@@ -217,17 +218,53 @@ static void render_tuco_logo(void) {
     oled_write_raw_P(tuco_logo_raw, sizeof(tuco_logo_raw));
 }
 
-/*
-static void print_hello_world(void) {
-    oled_write_P(PSTR("Hello, World! ////"), false);
-    oled_scroll_left();
-}
-*/
+static bool display_mf_logo   = true;
+static bool display_game_logo = true;
 
-bool oled_task_user(void) {
-    render_tuco_logo();
+// void housekeeping_task_user(void) {
+bool oled_task_kb(void) {
+    if (display_mf_logo) {
+        render_haute42_logo();
+        display_mf_logo = false;
+    }
+
+    // TODO: timer_elapsed(timer_read()) always returns 0?
+    if (display_game_logo && timer_read() >= 4000) {
+        oled_clear();
+        render_tuco_logo();
+        oled_render_dirty(true);
+        display_game_logo = false;
+    }
 
     return false;
 }
 
+void oled_render_boot(bool bootloader) {
+    oled_clear();
+    oled_set_cursor(0, 3);
+    oled_write_P(PSTR(bootloader ? "Awaiting flash..." : "Rebooting..."), false);
+    oled_render_dirty(true);
+}
+
 #endif // OLED_ENABLE
+
+// TODO: SOCD
+
+void keyboard_post_init_user(void) {
+#ifdef CONSOLE_ENABLE
+    debug_enable = true;
+    debug_matrix = true;
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_mode(RGB_MATRIX_CUSTOM_TXKO_SOLID);
+#endif
+}
+
+bool shutdown_user(bool jump_to_bootloader) {
+#ifdef OLED_ENABLE
+    oled_render_boot(jump_to_bootloader);
+#endif
+
+    return false;
+}
