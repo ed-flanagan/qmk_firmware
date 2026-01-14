@@ -69,16 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // clang-format on
 
-// TODO: SOCD
-
-void keyboard_post_init_user(void) {
-    debug_enable = true;
-    debug_matrix = true;
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_mode(RGB_MATRIX_CUSTOM_TXKO_SOLID);
-#endif
-}
-
 /*
  * Essentially emulates RM_FLGN -- so no real need, but kind of want this for
  * reference
