@@ -43,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TURBO, MO(_FN), GP_S3, GP_S1, GP_S2,
 
         GP_DL, GP_DD, GP_DR, GP_DU,
-        GP_B3, GP_B4, GP_R1, GP_L1,
-        GP_B1, GP_B2, GP_R2, GP_L2,
-        GP_DU, GP_L3, GP_R3, KC_NO
+        GP_B3, GP_B4, GP_R1, XXXXXXX,
+        GP_B1, GP_B2, GP_R2, XXXXXXX,
+        GP_L1, GP_L3, GP_L2, GP_R3
     ),
 
     [_KEY] = LAYOUT(
