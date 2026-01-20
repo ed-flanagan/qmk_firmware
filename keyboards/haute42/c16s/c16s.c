@@ -262,7 +262,7 @@ void keyboard_post_init_user(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_mode(RGB_MATRIX_CUSTOM_TXKO_SOLID);
+    rgb_matrix_mode(RGB_MATRIX_CUSTOM_TUCO_SOLID);
 #endif
 }
 
