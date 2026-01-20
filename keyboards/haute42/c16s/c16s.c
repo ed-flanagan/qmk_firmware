@@ -240,6 +240,11 @@ bool oled_task_kb(void) {
 }
 
 void oled_render_boot(bool bootloader) {
+    // TODO: better way to do this? Believe this is because we're not in an
+    // oled_task callback
+    if (is_oled_scrolling()) {
+        oled_scroll_off();
+    }
     oled_clear();
     oled_set_cursor(0, 3);
     oled_write_P(PSTR(bootloader ? "Awaiting flash..." : "Rebooting..."), false);
